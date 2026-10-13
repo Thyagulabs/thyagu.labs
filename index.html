@@ -195,6 +195,14 @@ body.menu-open .drawer { transform: none; }
 .float.chip .ib { width: 36px; height: 36px; flex: none; border-radius: 12px; display: grid; place-items: center; background: var(--tint); color: var(--cobalt); }
 .float.chip small { display: block; font-weight: 500; color: var(--ink-2); font-size: 12px; }
 
+
+/* Desktop: the original 128px gap under the menu stays fixed. The hero content (left and right)
+   is then scaled by script so that the "Meet Our Team" card ends just above the bottom of the
+   screen: no cut-off, and no empty band underneath. */
+@media (min-width: 1024px) {
+  .hero { padding: 128px 0 28px; }
+  .hero-grid { margin-top: 0; align-items: start; }
+}
 @media (max-width: 1023px) {
   .hero { padding-top: 120px; }
   .hero-grid { grid-template-columns: minmax(0, 1fr); gap: 24px; }
@@ -220,6 +228,23 @@ body.menu-open .drawer { transform: none; }
   .float.chip { left: auto; right: 0; top: 6%; bottom: auto; max-width: 180px; padding: 10px 12px; font-size: 12.5px; }
 }
 @media (max-width: 359px) { .float.chip { display: none; } }
+
+/* compliance badges */
+.compliance { display: flex; flex-wrap: wrap; gap: 12px; }
+.cbadge { display: inline-flex; align-items: center; gap: 12px; padding: 10px 14px 10px 10px; border-radius: 16px; background: #fff; border: 1px solid rgba(11, 28, 48, .06); box-shadow: 0 12px 28px -16px rgba(11, 28, 48, .4); }
+.cicon { width: 42px; height: 42px; flex: none; border-radius: 12px; display: grid; place-items: center; color: #fff; }
+.cicon svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.hipaa .cicon { background: linear-gradient(135deg, #2f8bff, #1747c9); }
+.gdpr .cicon { background: linear-gradient(135deg, #2d5ed8, #12309a); box-shadow: inset 0 0 0 2px rgba(255, 214, 10, .55); }
+.ctext b { display: block; font: 800 14.5px/1.15 var(--display); letter-spacing: -.01em; color: var(--ink); }
+.ctext small { display: block; margin-top: 3px; font: 500 12px/1.2 var(--body); color: var(--ink-2); }
+.cbadge .cok { width: 20px; height: 20px; flex: none; fill: none; stroke: var(--emerald); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; margin-left: 4px; }
+.compliance.dark { justify-content: center; margin-top: 28px; }
+.compliance.dark .cbadge { background: rgba(255, 255, 255, .05); border-color: var(--night-line); box-shadow: none; }
+.compliance.dark .ctext b { color: #fff; }
+.compliance.dark .ctext small { color: var(--night-ink-2); }
+@media (max-width: 1023px) { .hero-left .compliance { justify-content: center; } }
+@media (max-width: 419px) { .compliance { gap: 8px; } .cbadge { padding: 8px 10px 8px 8px; gap: 10px; } .cicon { width: 36px; height: 36px; } .cicon svg { width: 22px; height: 22px; } .ctext b { font-size: 13px; } .ctext small { font-size: 11px; } .cbadge .cok { display: none; } }
 
 /* ---------- hubs ---------- */
 .filters { display: inline-flex; flex-wrap: wrap; justify-content: center; gap: 4px; padding: 5px; border-radius: 14px; background: var(--card); border: 1px solid var(--line); box-shadow: var(--shadow); }
@@ -268,13 +293,29 @@ body.menu-open .drawer { transform: none; }
 .roles button .i { font-size: 18px; }
 .roles button:hover { color: #fff; border-color: rgba(255, 255, 255, .2); }
 .roles button[aria-selected="true"] { color: #050a18; background: #fff; border-color: #fff; }
-.role-note { margin: 20px auto 40px; max-width: 640px; min-height: 52px; text-align: center; color: var(--night-ink-2); font-size: 15px; }
+.role-note { margin: 20px auto 40px; max-width: 640px; min-height: 3.4em; text-align: center; color: var(--night-ink-2); font-size: 15px; }
 .role-note b { color: #fff; font-weight: 600; }
 .people { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 @media (max-width: 1023px) { .people { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 599px) { .people { grid-template-columns: minmax(0, 1fr); gap: 10px; } .person { padding: 14px; gap: 14px; } .person .badge { display: none; } .avatar { width: 48px; height: 48px; } }
-.person { display: flex; align-items: center; gap: 16px; padding: 18px; border-radius: 18px; background: var(--night-card); border: 1px solid var(--night-line); transition: transform .25s ease, border-color .25s ease, background .25s ease; animation: pop .45s cubic-bezier(.2, .7, .2, 1) both; }
-.person:hover { transform: translateY(-3px); background: rgba(255, 255, 255, .07); border-color: rgba(182, 196, 255, .28); }
+/* Phones: a swipeable row with a fixed height, so switching roles never changes the page length */
+@media (max-width: 599px) {
+  .role-note { min-height: 7em; margin-bottom: 20px; font-size: 14px; }
+  .people { display: flex; grid-template-columns: none; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); margin-inline: calc(var(--gutter) * -1); padding: 4px var(--gutter) 14px; scrollbar-width: none; }
+  .people::-webkit-scrollbar { display: none; }
+  .person { flex: 0 0 84%; scroll-snap-align: start; padding: 14px; gap: 14px; height: 104px; }
+  .person .stack { flex-wrap: nowrap; overflow: hidden; }
+  .person .badge { display: none !important; }
+  .avatar { width: 48px; height: 48px; }
+  .person .name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .people.filtering .person.dim { display: none; }
+  .swipe-hint { display: flex !important; }
+}
+.swipe-hint { display: none; align-items: center; justify-content: center; gap: 6px; margin-top: 8px; font-size: 12.5px; color: var(--night-ink-2); }
+.swipe-hint .i { font-size: 14px; }
+.person { display: flex; align-items: center; gap: 16px; padding: 18px; border-radius: 18px; background: var(--night-card); border: 1px solid var(--night-line); transition: transform .35s ease, border-color .35s ease, background .35s ease, opacity .35s ease, filter .35s ease, box-shadow .35s ease; }
+.people.filtering .person.dim { opacity: .16; filter: grayscale(1); transform: scale(.97); }
+.people.filtering .person.lit { background: rgba(255, 255, 255, .08); border-color: rgba(182, 196, 255, .45); box-shadow: 0 18px 40px -22px rgba(45, 94, 216, .9); }
+.person:not(.dim):hover { transform: translateY(-3px); background: rgba(255, 255, 255, .07); border-color: rgba(182, 196, 255, .28); }
 .avatar { position: relative; width: 56px; height: 56px; flex: none; border-radius: 50%; padding: 2px; background: var(--ring); }
 .avatar span { width: 100%; height: 100%; border-radius: 50%; display: grid; place-items: center; background: var(--night-2); font: 700 17px/1 var(--display); color: #fff; letter-spacing: .02em; }
 .person .who { min-width: 0; flex: 1; }
@@ -344,6 +385,11 @@ footer { background: var(--night); color: var(--night-ink-2); padding: 64px 0 32
 footer .about { max-width: 520px; margin: 16px auto 0; font-size: 14.5px; line-height: 1.65; }
 footer .cert { margin-top: 16px; display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; color: var(--night-ink); }
 footer .cert .i { font-size: 18px; color: var(--emerald-light); }
+footer .faddr { margin: 20px auto 0; max-width: 560px; display: flex; flex-direction: column; align-items: center; gap: 10px; font-style: normal; font-size: 14px; line-height: 1.6; color: var(--night-ink); }
+footer .faddr span, footer .faddr a { display: inline-flex; align-items: flex-start; gap: 8px; text-align: center; }
+footer .faddr .i { font-size: 17px; margin-top: 3px; color: var(--emerald-light); flex: none; }
+footer .faddr a:hover { color: #fff; }
+@media (max-width: 599px) { footer .faddr br { display: none; } }
 .fbottom { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--night-line); display: flex; flex-direction: column; align-items: center; gap: 12px; font-size: 13px; }
 .fbottom nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 24px; }
 .fbottom a:hover { color: #fff; }
@@ -353,7 +399,7 @@ footer .cert .i { font-size: 18px; color: var(--emerald-light); }
 </style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></symbol><symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol><symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol><symbol id="i-arrow_forward" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol><symbol id="i-groups" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 19.5c0-3.3 2.7-5.6 6-5.6s6 2.3 6 5.6"/><circle cx="17" cy="9" r="2.5"/><path d="M16.6 13.7c2.5.3 4.4 2.2 4.4 4.9"/></symbol><symbol id="i-check_circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.4l2.7 2.7L16.2 9.6"/></symbol><symbol id="i-sell" viewBox="0 0 24 24"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.6" cy="7.6" r="1.3" fill="currentColor" stroke="none"/></symbol><symbol id="i-autorenew" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.3-4.9L4 8"/><path d="M4 4v4h4"/><path d="M4 13a8 8 0 0 0 14.3 4.9L20 16"/><path d="M20 20v-4h-4"/></symbol><symbol id="i-support_agent" viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/><path d="M19 20c0 1.1-1.8 2-4 2h-2"/></symbol><symbol id="i-design_services" viewBox="0 0 24 24"><path d="M15.2 4.8l4 4L8.4 19.6 4 20l.4-4.4z"/><path d="M13.4 6.6l4 4"/></symbol><symbol id="i-phone_iphone" viewBox="0 0 24 24"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M11 18.5h2"/></symbol><symbol id="i-android" viewBox="0 0 24 24"><path d="M6 11a6 6 0 0 1 12 0z"/><rect x="6" y="12.5" width="12" height="7.5" rx="2"/><path d="M8.3 4.6l1.3 2.1M15.7 4.6l-1.3 2.1"/><circle cx="10" cy="8.6" r=".7" fill="currentColor" stroke="none"/><circle cx="14" cy="8.6" r=".7" fill="currentColor" stroke="none"/></symbol><symbol id="i-language" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></symbol><symbol id="i-install_mobile" viewBox="0 0 24 24"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></symbol><symbol id="i-devices" viewBox="0 0 24 24"><rect x="2" y="4" width="13" height="10" rx="1.5"/><path d="M5.5 18h6M8.5 14v4"/><rect x="16" y="8" width="6" height="12" rx="1.5"/></symbol><symbol id="i-dns" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><circle cx="7" cy="7.5" r=".9" fill="currentColor" stroke="none"/><circle cx="7" cy="16.5" r=".9" fill="currentColor" stroke="none"/></symbol><symbol id="i-fact_check" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 3h6v3H9z"/><path d="M9 13l2 2 4-4"/></symbol><symbol id="i-schedule_send" viewBox="0 0 24 24"><path d="M21 3L10 14"/><path d="M21 3l-7 18-4-7-7-4z"/></symbol><symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol><symbol id="i-verified" viewBox="0 0 24 24"><path d="M12 2.8l2.2 1.6 2.7-.1.8 2.6 2.2 1.6-.9 2.5.9 2.6-2.2 1.6-.8 2.6-2.7-.1L12 19.2l-2.2-1.5-2.7.1-.8-2.6-2.2-1.6.9-2.6-.9-2.5 2.2-1.6.8-2.6 2.7.1z"/><path d="M9 11.2l2 2 4-4"/></symbol><symbol id="i-verified_user" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></symbol><symbol id="i-task_alt" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.4l2.7 2.7L16.2 9.6"/></symbol></svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol><symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></symbol><symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></symbol><symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol><symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol><symbol id="i-arrow_forward" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol><symbol id="i-groups" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 19.5c0-3.3 2.7-5.6 6-5.6s6 2.3 6 5.6"/><circle cx="17" cy="9" r="2.5"/><path d="M16.6 13.7c2.5.3 4.4 2.2 4.4 4.9"/></symbol><symbol id="i-check_circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.4l2.7 2.7L16.2 9.6"/></symbol><symbol id="i-sell" viewBox="0 0 24 24"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.6" cy="7.6" r="1.3" fill="currentColor" stroke="none"/></symbol><symbol id="i-autorenew" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.3-4.9L4 8"/><path d="M4 4v4h4"/><path d="M4 13a8 8 0 0 0 14.3 4.9L20 16"/><path d="M20 20v-4h-4"/></symbol><symbol id="i-support_agent" viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/><path d="M19 20c0 1.1-1.8 2-4 2h-2"/></symbol><symbol id="i-design_services" viewBox="0 0 24 24"><path d="M15.2 4.8l4 4L8.4 19.6 4 20l.4-4.4z"/><path d="M13.4 6.6l4 4"/></symbol><symbol id="i-phone_iphone" viewBox="0 0 24 24"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M11 18.5h2"/></symbol><symbol id="i-android" viewBox="0 0 24 24"><path d="M6 11a6 6 0 0 1 12 0z"/><rect x="6" y="12.5" width="12" height="7.5" rx="2"/><path d="M8.3 4.6l1.3 2.1M15.7 4.6l-1.3 2.1"/><circle cx="10" cy="8.6" r=".7" fill="currentColor" stroke="none"/><circle cx="14" cy="8.6" r=".7" fill="currentColor" stroke="none"/></symbol><symbol id="i-language" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></symbol><symbol id="i-install_mobile" viewBox="0 0 24 24"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></symbol><symbol id="i-devices" viewBox="0 0 24 24"><rect x="2" y="4" width="13" height="10" rx="1.5"/><path d="M5.5 18h6M8.5 14v4"/><rect x="16" y="8" width="6" height="12" rx="1.5"/></symbol><symbol id="i-dns" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><circle cx="7" cy="7.5" r=".9" fill="currentColor" stroke="none"/><circle cx="7" cy="16.5" r=".9" fill="currentColor" stroke="none"/></symbol><symbol id="i-fact_check" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 3h6v3H9z"/><path d="M9 13l2 2 4-4"/></symbol><symbol id="i-schedule_send" viewBox="0 0 24 24"><path d="M21 3L10 14"/><path d="M21 3l-7 18-4-7-7-4z"/></symbol><symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol><symbol id="i-verified" viewBox="0 0 24 24"><path d="M12 2.8l2.2 1.6 2.7-.1.8 2.6 2.2 1.6-.9 2.5.9 2.6-2.2 1.6-.8 2.6-2.7-.1L12 19.2l-2.2-1.5-2.7.1-.8-2.6-2.2-1.6.9-2.6-.9-2.5 2.2-1.6.8-2.6 2.7.1z"/><path d="M9 11.2l2 2 4-4"/></symbol><symbol id="i-verified_user" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></symbol><symbol id="i-task_alt" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.4l2.7 2.7L16.2 9.6"/></symbol></svg>
 
 <header class="top" id="top-bar">
   <div class="bar">
@@ -397,6 +443,10 @@ footer .cert .i { font-size: 18px; color: var(--emerald-light); }
     <div class="hero-grid">
       <div class="hero-left">
         <h1 class="hero-h">World-Class Independent Talent. <span>Zero Cross-Border Friction.</span></h1>
+        <div class="compliance" aria-label="Compliance">
+          <div class="cbadge hipaa"><span class="cicon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6z"/><path d="M7.5 12.5h2.2l1.3-2.6 2 5 1.3-2.4h2.2"/></svg></span><span class="ctext"><b>HIPAA Compliant</b><small>US healthcare data</small></span><svg class="cok" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.4l2.7 2.7L16.2 9.6"/></svg></div>
+          <div class="cbadge gdpr"><span class="cicon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6z"/><rect x="9" y="11" width="6" height="5" rx="1"/><path d="M10.2 11V9.6a1.8 1.8 0 0 1 3.6 0V11"/></svg></span><span class="ctext"><b>GDPR Compliant</b><small>EU data protection</small></span><svg class="cok" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.4l2.7 2.7L16.2 9.6"/></svg></div>
+        </div>
         <div class="popular"><span>Popular:</span>
           <button type="button" data-svc="UI / UX App Design">UI/UX design</button>
           <button type="button" data-svc="iOS Development">iOS app</button>
@@ -486,6 +536,7 @@ footer .cert .i { font-size: 18px; color: var(--emerald-light); }
     <div class="roles" role="tablist" aria-label="Filter team by role" id="roleTabs"></div>
     <p class="role-note" id="roleNote" aria-live="polite"></p>
     <div class="people" id="people"></div>
+    <div class="swipe-hint" aria-hidden="true">Swipe to see more <svg class="i"><use href="#i-arrow_forward"/></svg></div>
   </div>
 </section>
 
@@ -531,6 +582,7 @@ footer .cert .i { font-size: 18px; color: var(--emerald-light); }
           <label for="notes">Brief Scope or Target Start Date (Optional)</label>
           <textarea id="notes" rows="3" placeholder="e.g. An ordering app for our 5 stores, iOS and Android, ideally live by March."></textarea>
         </div>
+        <input type="text" id="hp" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
         <div id="submitArea">
           <button class="btn btn-primary submit" type="submit" id="submitBtn">Book Direct Regional Match Session <svg class="i" aria-hidden="true"><use href="#i-schedule_send"/></svg></button>
         </div>
@@ -549,11 +601,18 @@ footer .cert .i { font-size: 18px; color: var(--emerald-light); }
   <div class="wrap">
     <div class="fbrand"><img src="assets/logo-mark.png" alt="" width="40" height="40"><span class="wm">thyagu<em>labs</em></span></div>
     <p class="about">An elite global collective of vetted sovereign operators and senior technologists, orchestrated by dedicated on-the-ground regional account directors.</p>
+    <address class="faddr">
+      <span><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg>#28/4, Whitefield – Kundalahalli main road, Siddapura,<br>4th floor, Above Prima Diagnostics, Bengaluru – 66, India</span>
+      <a href="mailto:support@thyagulabs.com"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg>support@thyagulabs.com</a>
+    </address>
+    <div class="compliance dark" aria-label="Compliance">
+      <div class="cbadge hipaa"><span class="cicon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6z"/><path d="M7.5 12.5h2.2l1.3-2.6 2 5 1.3-2.4h2.2"/></svg></span><span class="ctext"><b>HIPAA Compliant</b><small>US healthcare data</small></span></div>
+      <div class="cbadge gdpr"><span class="cicon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6z"/><rect x="9" y="11" width="6" height="5" rx="1"/><path d="M10.2 11V9.6a1.8 1.8 0 0 1 3.6 0V11"/></svg></span><span class="ctext"><b>GDPR Compliant</b><small>EU data protection</small></span></div>
+    </div>
     <div class="fbottom">
       <nav aria-label="Legal">
-        <a href="#" data-toast="The Master Services Agreement is available on request from your regional desk.">Master Services Agreement</a>
-        <a href="#" data-toast="Enterprise Security documentation is available on request from your regional desk.">Enterprise Security</a>
-        <a href="#" data-toast="Privacy Policy is available on request from your regional desk.">Privacy Policy</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
       </nav>
       <span>© <span id="year">2026</span> thyagulabs. All rights reserved.</span>
     </div>
@@ -564,8 +623,10 @@ footer .cert .i { font-size: 18px; color: var(--emerald-light); }
 
 <script>
 (() => {
-  // Where the form posts its JSON. Empty = demo mode (validates, shows success, logs payload).
-  const LEAD_FORM_ENDPOINT = "";
+  // Discovery-call requests are emailed to this address through FormSubmit (formsubmit.co).
+  // The very first submission triggers a one-time activation email to this inbox: click "Activate Form" in it.
+  const LEAD_EMAIL = "support@thyagulabs.com";
+  const LEAD_FORM_ENDPOINT = "https://formsubmit.co/ajax/" + LEAD_EMAIL;
 
   document.documentElement.classList.add("js");
   const $ = (s, r = document) => r.querySelector(s);
@@ -654,27 +715,35 @@ footer .cert .i { font-size: 18px; color: var(--emerald-light); }
   const tabs = [{ key: "all", label: "Everyone", icon: "groups" }, ...ROLES];
   $("#roleTabs").innerHTML = tabs.map((t, i) =>
     `<button type="button" role="tab" data-r="${t.key}" aria-selected="${i === 0}"><svg class="i" aria-hidden="true"><use href="#i-${t.icon}"/></svg>${t.label}</button>`).join("");
-  function renderTeam(key) {
-    const list = key === "all" ? ROLES : ROLES.filter((r) => r.key === key);
-    $("#roleNote").innerHTML = key === "all"
-      ? "Five disciplines, one team. Pick a role to see who does what."
-      : list[0].note;
-    let k = 0;
-    $("#people").innerHTML = list.flatMap((r) => r.people.map((n) => `
-      <article class="person" style="animation-delay:${(k++) * 35}ms">
-        <div class="avatar" style="--ring:${r.ring}"><span>${initials(n)}</span></div>
-        <div class="who">
-          <div class="name">${esc(n)}</div>
-          <div class="role">${r.title}</div>
-          <div class="stack">${r.stack.map((s) => `<i>${s}</i>`).join("")}</div>
-        </div>
-        <span class="badge" aria-hidden="true"><svg class="i" aria-hidden="true"><use href="#i-${r.icon}"/></svg></span>
-      </article>`)).join("");
+  // All cards are drawn once. Choosing a role only highlights its people (desktop) or hides
+  // the others inside a fixed-height swipe row (phones), so the page never changes height.
+  $("#people").innerHTML = ROLES.flatMap((r) => r.people.map((n) => `
+    <article class="person" data-r="${r.key}">
+      <div class="avatar" style="--ring:${r.ring}"><span>${initials(n)}</span></div>
+      <div class="who">
+        <div class="name">${esc(n)}</div>
+        <div class="role">${r.title}</div>
+        <div class="stack">${r.stack.map((s) => `<i>${s}</i>`).join("")}</div>
+      </div>
+      <span class="badge" aria-hidden="true"><svg class="i" aria-hidden="true"><use href="#i-${r.icon}"/></svg></span>
+    </article>`)).join("");
+  function showRole(key) {
+    const role = ROLES.find((r) => r.key === key);
+    $("#roleNote").innerHTML = role ? role.note : "Five disciplines, one team. Pick a role to see who does what.";
+    const grid = $("#people");
+    grid.classList.toggle("filtering", key !== "all");
+    $$(".person", grid).forEach((c) => {
+      const on = key === "all" || c.dataset.r === key;
+      c.classList.toggle("lit", key !== "all" && on);
+      c.classList.toggle("dim", !on);
+      c.setAttribute("aria-hidden", String(!on));
+    });
+    if (getComputedStyle(grid).display === "flex") grid.scrollTo({ left: 0, behavior: "smooth" });
   }
-  renderTeam("all");
+  showRole("all");
   $$("#roleTabs button").forEach((b) => b.addEventListener("click", () => {
     $$("#roleTabs button").forEach((x) => x.setAttribute("aria-selected", String(x === b)));
-    renderTeam(b.dataset.r);
+    showRole(b.dataset.r);
   }));
 
   // ---------- form tiles ----------
@@ -695,6 +764,28 @@ footer .cert .i { font-size: 18px; color: var(--emerald-light); }
   }
   addEventListener("scroll", onScroll, { passive: true }); onScroll();
 
+
+  // ---------- hero: scale content to fill the first screen exactly (desktop only) ----------
+  const heroGrid = $(".hero-grid");
+  function fitHero() {
+    heroGrid.style.zoom = "";
+    if (innerWidth < 1024) return;
+    const top = heroGrid.getBoundingClientRect().top + scrollY;
+    const avail = innerHeight - top - 28;            // leave a 28px breathing space at the bottom
+    const height = () => Math.max(...[".trusted", ".phone", ".float.profile"].map((sel) => $(sel).getBoundingClientRect().bottom + scrollY)) - top;
+    // Text re-wraps as the scale changes, so refine the scale a few times.
+    let k = Math.max(0.6, Math.min(1.3, avail / height()));
+    for (let n = 0; n < 5; n++) {
+      heroGrid.style.zoom = k.toFixed(3);
+      const h = height();
+      if (Math.abs(h - avail) < 4) break;
+      k = Math.max(0.6, Math.min(1.3, k * avail / h));
+    }
+    if (height() > avail) { k = Math.max(0.6, k - 0.01); heroGrid.style.zoom = k.toFixed(3); }
+  }
+  requestAnimationFrame(fitHero);
+  addEventListener("resize", fitHero);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitHero);
 
   // ---------- hero: team avatar stack ----------
   const picks = [["flutter", 0], ["backend", 0], ["ios", 0], ["android", 0], ["qa", 0], ["backend", 5]];
@@ -756,17 +847,26 @@ footer .cert .i { font-size: 18px; color: var(--emerald-light); }
     const btn = $("#submitBtn");
     btn.disabled = true;
     btn.innerHTML = '<span class="spin"></span> Scheduling Call...';
+    if ($("#hp").value) { $("#submitArea").innerHTML = '<div class="ok">Consultation request received.</div>'; return; } // bot trap
+    const region = $("input[name=region]:checked").parentElement.textContent.trim().replace(/^[^A-Za-z]+/, "");
     const payload = {
-      region: $("input[name=region]:checked").parentElement.textContent.trim(),
-      services: $$("input[name=domain]:checked").map((i) => i.value),
-      phone: $("#phone").value.trim(), email: $("#email").value.trim(), _replyto: $("#email").value.trim(),
-      name_and_title: $("#name").value.trim(), notes: $("#notes").value.trim(),
-      submitted_at: new Date().toISOString(), source: "thyagulabs-web",
+      "Name & title": $("#name").value.trim(),
+      "Email": $("#email").value.trim(),
+      "Contact number": $("#phone").value.trim() || "Not given",
+      "Region": region,
+      "Services": $$("input[name=domain]:checked").map((i) => i.value).join(", "),
+      "Project notes": $("#notes").value.trim() || "None",
+      "Submitted": new Date().toUTCString(),
+      _subject: "New discovery call request: " + $("#name").value.trim() + " (" + region + ")",
+      _replyto: $("#email").value.trim(),
+      _template: "table",
+      _captcha: "false",
     };
     try {
       if (LEAD_FORM_ENDPOINT) {
         const r = await fetch(LEAD_FORM_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(payload) });
-        if (!r.ok) throw new Error("Your request wasn’t sent (error " + r.status + "). Please try again.");
+        const data = await r.json().catch(() => ({}));
+        if (!r.ok || String(data.success) !== "true") throw new Error("Your request wasn’t sent. Please try again.");
       } else {
         console.log("[demo mode] lead payload", payload);
         await new Promise((r) => setTimeout(r, 800));
@@ -777,7 +877,7 @@ footer .cert .i { font-size: 18px; color: var(--emerald-light); }
       btn.disabled = false;
       btn.innerHTML = 'Book Direct Regional Match Session <svg class="i" aria-hidden="true"><use href="#i-schedule_send"/></svg>';
       const f = $("#failMsg");
-      f.textContent = (err && err.message && !/fetch/i.test(err.message) ? err.message : "We couldn’t reach our server. Check your connection and try again.") + " If it keeps failing, please email us directly.";
+      f.textContent = (err && err.message && !/fetch/i.test(err.message) ? err.message : "We couldn’t reach our server. Check your connection and try again.") + " If it keeps failing, email us at " + LEAD_EMAIL + ".";
       f.hidden = false;
     }
   });

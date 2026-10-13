@@ -3,7 +3,10 @@
 Marketing site for thyagulabs. It is a single static page: plain HTML, CSS and JavaScript, with no build step and no dependencies to install.
 
 ```
-index.html              The whole site (content, styles and scripts)
+index.html              The main site (content, styles and scripts)
+privacy.html            Privacy Policy
+terms.html              Terms & Conditions
+assets/legal.css        Styles shared by the two legal pages
 assets/logo-mark.png    Logo mark used in the header, hero badge and footer
 assets/logo-full.png    Full logo, used for link previews
 assets/favicon.png      Browser tab icon
@@ -48,17 +51,11 @@ python3 -m http.server 8000
 
 ## Before going live
 
-- **Connect the contact form.** The form runs in demo mode: it checks the fields and shows the success message but sends nothing. To receive enquiries, create a free form at [Formspree](https://formspree.io) (or Web3Forms, Basin, etc.), then in `index.html` set:
-
-  ```js
-  const LEAD_FORM_ENDPOINT = "https://formspree.io/f/your-form-id";
-  ```
-
-  Each submission arrives by email with the region, services, phone, email, name and notes.
-- **Add your contact email.** If the form fails to send, the page currently says "please email us directly". Add your real address to that message (search for `email us directly`) and, ideally, to the footer.
+- **Activate the contact form (one time).** Discovery-call requests are emailed to **support@thyagulabs.com** through [FormSubmit](https://formsubmit.co), a free form-to-email service that needs no account. After the site is live, submit the form once yourself. FormSubmit then sends an activation email to support@thyagulabs.com; click **Activate Form** in it. Every request after that arrives in that inbox as a table with name, email, phone, region, services and notes, and pressing Reply answers the person directly. Until it is activated, visitors see a message asking them to email support@thyagulabs.com instead. To change the address, edit `LEAD_EMAIL` in `index.html`. The form only sends from a real web address (GitHub Pages or `python3 -m http.server`), not from a file opened directly on your computer.
+- **Check the legal pages.** `privacy.html` and `terms.html` name the company as "thyagulabs" at the Bengaluru office address, with Indian law and Bengaluru courts. If your registered legal name is different (for example "thyagulabs Private Limited"), search both files for "thyagulabs, #28/4" and update it. These pages are a solid starting point, not legal advice, so have a lawyer review them before you rely on them.
 - **Link previews.** For WhatsApp, LinkedIn and Slack previews to show the logo, change `og:image` in `index.html` to the full URL, e.g. `https://thyagulabs.com/assets/logo-full.png`.
+- **Compliance badges.** The HIPAA and GDPR badges in the hero and footer are your own statement of compliance (there is no official HIPAA certificate, and the GDPR has no official badge). Make sure you can show the safeguards behind them if a client asks, for example signed Business Associate Agreements for US healthcare projects and a GDPR data processing agreement for EU clients.
 - **Check the claims.** Several lines came from the original design mock-up and are promises clients may hold you to: "Lowest price in the market", "SLA <15 min response", the response guarantee after submitting the form, and the compliance points on each office card. Keep only what you can stand behind.
-- **Legal links.** The footer's Master Services Agreement, Enterprise Security and Privacy Policy links show a "available on request" message. Replace them with real pages when you have them. A privacy policy is required in most countries if you collect contact details.
 
 ## Editing content
 
