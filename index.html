@@ -549,7 +549,7 @@ footer .faddr a:hover { color: #fff; }
           <h2 class="h2" style="font-size:clamp(26px,3vw,34px)">Schedule Regional Discovery Call</h2>
           <p>Guaranteed callback within your local working hours</p>
         </div>
-        <span class="sla">SLA &lt;15 Min Response</span>
+        <span class="sla">Response at the earliest</span>
       </div>
       <form id="leadForm" novalidate>
         <fieldset>
@@ -589,7 +589,7 @@ footer .faddr a:hover { color: #fff; }
         <div class="fail" id="failMsg" hidden></div>
         <div class="trust">
           <span><svg class="i" aria-hidden="true"><use href="#i-lock"/></svg>Encrypted • NDA Bound</span>
-          <span><svg class="i" aria-hidden="true"><use href="#i-verified"/></svg>Dedicated SLA Guarantee</span>
+          <span><svg class="i" aria-hidden="true"><use href="#i-verified"/></svg>Dedicated account director</span>
         </div>
       </form>
     </div>
@@ -866,12 +866,16 @@ footer .faddr a:hover { color: #fff; }
       if (LEAD_FORM_ENDPOINT) {
         const r = await fetch(LEAD_FORM_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(payload) });
         const data = await r.json().catch(() => ({}));
-        if (!r.ok || String(data.success) !== "true") throw new Error("Your request wasn’t sent. Please try again.");
+        console.info("[contact form] FormSubmit replied", r.status, data);
+        if (!r.ok || String(data.success) !== "true") {
+          // Show FormSubmit's own reason (e.g. "This form needs Activation…") so problems are visible.
+          throw new Error(data.message ? "Not sent: " + data.message : "Your request wasn’t sent (error " + r.status + "). Please try again.");
+        }
       } else {
         console.log("[demo mode] lead payload", payload);
         await new Promise((r) => setTimeout(r, 800));
       }
-      $("#submitArea").innerHTML = '<div class="ok"><svg class="i" aria-hidden="true"><use href="#i-check_circle"/></svg>Consultation request received. Your Regional Managing Director will contact you within 15 minutes.</div>';
+      $("#submitArea").innerHTML = '<div class="ok"><svg class="i" aria-hidden="true"><use href="#i-check_circle"/></svg>Consultation request received. Your Regional Managing Director will contact you at the earliest.</div>';
       $$("input, textarea", form).forEach((i) => (i.disabled = true));
     } catch (err) {
       btn.disabled = false;

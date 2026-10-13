@@ -55,7 +55,7 @@ python3 -m http.server 8000
 - **Check the legal pages.** `privacy.html` and `terms.html` name the company as "thyagulabs" at the Bengaluru office address, with Indian law and Bengaluru courts. If your registered legal name is different (for example "thyagulabs Private Limited"), search both files for "thyagulabs, #28/4" and update it. These pages are a solid starting point, not legal advice, so have a lawyer review them before you rely on them.
 - **Link previews.** For WhatsApp, LinkedIn and Slack previews to show the logo, change `og:image` in `index.html` to the full URL, e.g. `https://thyagulabs.com/assets/logo-full.png`.
 - **Compliance badges.** The HIPAA and GDPR badges in the hero and footer are your own statement of compliance (there is no official HIPAA certificate, and the GDPR has no official badge). Make sure you can show the safeguards behind them if a client asks, for example signed Business Associate Agreements for US healthcare projects and a GDPR data processing agreement for EU clients.
-- **Check the claims.** Several lines came from the original design mock-up and are promises clients may hold you to: "Lowest price in the market", "SLA <15 min response", the response guarantee after submitting the form, and the compliance points on each office card. Keep only what you can stand behind.
+- **Check the claims.** Several lines came from the original design mock-up and are promises clients may hold you to: "Lowest price in the market", "Guaranteed callback within your local working hours", and the compliance points on each office card. Keep only what you can stand behind.
 
 ## Editing content
 
