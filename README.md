@@ -66,7 +66,6 @@ All text is in `index.html`:
 | Headline, intro, popular chips, hero cards | `<!-- HERO -->` |
 | Office cards (Germany, US, Canada, India, Singapore, Dubai) | `const HUBS = [` in the script |
 | Services | `const SERVICES = [` |
-| Team members and roles | `const ROLES = [` (add or remove names in each `people` list) |
 | Form options | `const REGIONS = [` and the services list |
 | Footer | `<footer>` |
 

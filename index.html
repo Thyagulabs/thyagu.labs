@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap">
 <style>
-/* Layout: dark hero → light hubs → light services → dark team → contact on a soft mesh → dark footer.
+/* Layout: dark hero → light hubs → light services → contact on a soft mesh → dark footer.
    One centred section-heading system, one 1280px content column, one 24px grid gap everywhere. */
 :root {
   /* brand (from DESIGN.md) */
@@ -65,12 +65,12 @@ h1, h2, h3, h4 { font-family: var(--display); margin: 0; text-wrap: balance; }
 .eyebrow::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--emerald); box-shadow: 0 0 0 4px rgba(0, 106, 97, .15); }
 .night .eyebrow { color: var(--night-ink); background: rgba(255, 255, 255, .06); border-color: var(--night-line); box-shadow: none; }
 .night .eyebrow::before { background: var(--emerald-light); box-shadow: 0 0 0 4px rgba(107, 216, 203, .18); }
-section.band { padding-block: 112px; position: relative; }
-@media (max-width: 767px) { section.band { padding-block: 72px; } }
-.sh { display: flex; flex-direction: column; align-items: center; text-align: center; max-width: 760px; margin: 0 auto 56px; gap: 16px; }
+section.band { padding-block: 64px; position: relative; }
+@media (max-width: 767px) { section.band { padding-block: 44px; } }
+.sh { display: flex; flex-direction: column; align-items: center; text-align: center; max-width: 760px; margin: 0 auto 36px; gap: 12px; }
 .sh p { margin: 0; color: var(--ink-2); max-width: 640px; }
 .night .sh p { color: var(--night-ink-2); }
-@media (max-width: 767px) { .sh { margin-bottom: 40px; } }
+@media (max-width: 767px) { .sh { margin-bottom: 28px; } }
 
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 0 28px; border-radius: 999px; border: 0; font: 600 15px/1.2 var(--display); letter-spacing: -.005em; white-space: nowrap; transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease; }
 .btn .i { font-size: 18px; transition: transform .2s ease; }
@@ -146,14 +146,10 @@ body.menu-open .drawer { transform: none; }
 .popular button:hover { background: #fff; transform: translateY(-1px); }
 .hero-sub { margin: 0; max-width: 560px; font-size: 17.5px; line-height: 1.6; color: #22324a; }
 .trusted { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; max-width: 560px; padding: 18px 22px; border-radius: 24px; background: rgba(255, 255, 255, .78); backdrop-filter: blur(12px); box-shadow: 0 18px 40px -22px rgba(11, 28, 48, .35); }
-.trusted .lbl { font: 700 16px/1.2 var(--display); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
-.trusted .lbl .i { font-size: 16px; color: var(--ink-3); transition: transform .2s; }
-.trusted a:hover .lbl .i { transform: translateX(3px); }
-.stack-av { display: flex; }
-.stack-av span { width: 46px; height: 46px; margin-left: -10px; border-radius: 50%; border: 3px solid #fff; display: grid; place-items: center; font: 700 14px/1 var(--display); color: #fff; background: var(--ring); }
-.stack-av span:first-child { margin-left: 0; }
 .trusted .num b { display: block; font: 800 34px/1 var(--display); letter-spacing: -.03em; }
-.trusted .num small { display: block; margin-top: 4px; font-size: 13px; color: var(--ink-2); }
+.trusted { width: fit-content; }
+.trusted .num { display: flex; align-items: center; gap: 14px; text-align: left; }
+.trusted .num small { display: block; margin-top: 0; font-size: 13px; color: var(--ink-2); }
 
 .hero-right { position: relative; min-height: 560px; }
 .phone { position: absolute; left: 50%; top: 50%; width: 270px; height: 548px; margin: -274px 0 0 -135px; border-radius: 46px; padding: 10px; background: #0b1c30; box-shadow: 0 50px 80px -30px rgba(11, 28, 48, .55), inset 0 0 0 2px #26324a; transform: rotate(-6deg); }
@@ -284,47 +280,7 @@ body.menu-open .drawer { transform: none; }
 .svc p { margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--ink-2); }
 .svc .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 6px; }
 
-/* ---------- team ---------- */
-.team { background: var(--night); color: var(--night-ink); overflow: hidden; isolation: isolate; }
-.team .glow { position: absolute; inset: auto -10% -30%; height: 70%; z-index: -1; background: radial-gradient(60% 60% at 30% 60%, rgba(39, 83, 199, .35), transparent 70%), radial-gradient(50% 50% at 75% 50%, rgba(0, 150, 136, .25), transparent 70%); filter: blur(30px); }
-.team .h2 { color: #fff; }
-.roles { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
-.roles button { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--night-line); background: rgba(255, 255, 255, .04); color: var(--night-ink-2); padding: 10px 16px; border-radius: 999px; font: 600 14px/1 var(--body); transition: all .2s ease; }
-.roles button .i { font-size: 18px; }
-.roles button:hover { color: #fff; border-color: rgba(255, 255, 255, .2); }
-.roles button[aria-selected="true"] { color: #050a18; background: #fff; border-color: #fff; }
-.role-note { margin: 20px auto 40px; max-width: 640px; min-height: 3.4em; text-align: center; color: var(--night-ink-2); font-size: 15px; }
-.role-note b { color: #fff; font-weight: 600; }
-.people { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-@media (max-width: 1023px) { .people { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-/* Phones: a swipeable row with a fixed height, so switching roles never changes the page length */
-@media (max-width: 599px) {
-  .role-note { min-height: 7em; margin-bottom: 20px; font-size: 14px; }
-  .people { display: flex; grid-template-columns: none; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); margin-inline: calc(var(--gutter) * -1); padding: 4px var(--gutter) 14px; scrollbar-width: none; }
-  .people::-webkit-scrollbar { display: none; }
-  .person { flex: 0 0 84%; scroll-snap-align: start; padding: 14px; gap: 14px; height: 104px; }
-  .person .stack { flex-wrap: nowrap; overflow: hidden; }
-  .person .badge { display: none !important; }
-  .avatar { width: 48px; height: 48px; }
-  .person .name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .people.filtering .person.dim { display: none; }
-  .swipe-hint { display: flex !important; }
-}
-.swipe-hint { display: none; align-items: center; justify-content: center; gap: 6px; margin-top: 8px; font-size: 12.5px; color: var(--night-ink-2); }
-.swipe-hint .i { font-size: 14px; }
-.person { display: flex; align-items: center; gap: 16px; padding: 18px; border-radius: 18px; background: var(--night-card); border: 1px solid var(--night-line); transition: transform .35s ease, border-color .35s ease, background .35s ease, opacity .35s ease, filter .35s ease, box-shadow .35s ease; }
-.people.filtering .person.dim { opacity: .16; filter: grayscale(1); transform: scale(.97); }
-.people.filtering .person.lit { background: rgba(255, 255, 255, .08); border-color: rgba(182, 196, 255, .45); box-shadow: 0 18px 40px -22px rgba(45, 94, 216, .9); }
-.person:not(.dim):hover { transform: translateY(-3px); background: rgba(255, 255, 255, .07); border-color: rgba(182, 196, 255, .28); }
-.avatar { position: relative; width: 56px; height: 56px; flex: none; border-radius: 50%; padding: 2px; background: var(--ring); }
-.avatar span { width: 100%; height: 100%; border-radius: 50%; display: grid; place-items: center; background: var(--night-2); font: 700 17px/1 var(--display); color: #fff; letter-spacing: .02em; }
-.person .who { min-width: 0; flex: 1; }
-.person .name { font: 700 16px/1.3 var(--display); color: #fff; }
-.person .role { margin-top: 2px; font-size: 13px; color: var(--night-ink-2); }
-.person .stack { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
-.person .stack i { font-style: normal; font: 600 11px/1 var(--body); padding: 5px 8px; border-radius: 6px; color: var(--night-ink); background: rgba(255, 255, 255, .07); }
-.person .badge { width: 36px; height: 36px; flex: none; border-radius: 10px; display: grid; place-items: center; color: var(--night-ink-2); background: rgba(255, 255, 255, .05); }
-.person .badge .i { font-size: 20px; }
+ { transform: translateY(-3px); background: rgba(255, 255, 255, .07); border-color: rgba(182, 196, 255, .28); }
 
 /* ---------- contact ---------- */
 .contact { background: radial-gradient(60% 50% at 15% 0%, rgba(220, 225, 255, .9), transparent 70%), radial-gradient(50% 50% at 90% 20%, rgba(134, 242, 228, .45), transparent 70%), var(--bg); }
@@ -411,10 +367,8 @@ footer .faddr a:hover { color: #fff; }
       <a href="#top" data-s="top" class="active">Home</a>
       <a href="#hubs" data-s="hubs">Global Hubs</a>
       <a href="#expertise" data-s="expertise">Services</a>
-      <a href="#team" data-s="team">Our Team</a>
     </nav>
     <div class="actions">
-      <a class="btn btn-outline btn-sm" href="#team">Meet the Team</a>
       <a class="btn btn-primary btn-sm book" href="#discovery">Book Discovery Call</a>
       <button class="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" id="menuBtn"><svg class="i" aria-hidden="true"><use href="#i-menu"/></svg></button>
     </div>
@@ -431,7 +385,6 @@ footer .faddr a:hover { color: #fff; }
     <a href="#top" data-s="top" class="active">Home</a>
     <a href="#hubs" data-s="hubs">Global Hubs</a>
     <a href="#expertise" data-s="expertise">Services</a>
-    <a href="#team" data-s="team">Our Team</a>
   </nav>
   <a class="btn btn-primary" href="#discovery">Book Discovery Call</a>
 </aside>
@@ -456,10 +409,6 @@ footer .faddr a:hover { color: #fff; }
         </div>
         <p class="hero-sub">Hire handpicked senior engineers, designers, and AI specialists. Every project is anchored by a dedicated local account director in your specific timezone, currency, and legal jurisdiction.</p>
         <div class="trusted">
-          <a href="#team">
-            <div class="lbl">Meet Our Team <svg class="i" aria-hidden="true"><use href="#i-arrow_forward"/></svg></div>
-            <div class="stack-av" id="heroAvatars"></div>
-          </a>
           <div class="num"><b class="tab">30+</b><small>Projects delivered<br>for 30 businesses</small></div>
         </div>
       </div>
@@ -485,7 +434,7 @@ footer .faddr a:hover { color: #fff; }
         <div class="float chip"><span class="ib"><svg class="i"><use href="#i-support_agent"/></svg></span><span>1 contact<small>A director in your timezone</small></span></div>
 
         <div class="float profile">
-          <div class="who"><span class="av">RT</span><div><b>Rohan Thomas</b><small>Native iOS Developer</small></div></div>
+          <div class="who"><span class="av" id="profileAv">RT</span><div><b>Rohan Thomas</b><small>Native iOS Developer</small></div></div>
           <div class="row"><span class="ib"><svg class="i"><use href="#i-autorenew"/></svg></span><span><b>Agile</b> delivery, short sprints</span></div>
           <div class="row"><span class="ib"><svg class="i"><use href="#i-sell"/></svg></span><span><b>Lowest price</b> in the market</span></div>
         </div>
@@ -524,21 +473,6 @@ footer .faddr a:hover { color: #fff; }
   </div>
 </section>
 
-<!-- TEAM -->
-<section class="band team night" id="team">
-  <div class="glow" aria-hidden="true"></div>
-  <div class="wrap">
-    <div class="sh reveal">
-      <span class="eyebrow">The People Behind Your Product</span>
-      <h2 class="h2">Meet <span class="grad-text">Our Team</span></h2>
-      <p>Backend, mobile and QA specialists who build, test and ship your app, from the server to the App Store.</p>
-    </div>
-    <div class="roles" role="tablist" aria-label="Filter team by role" id="roleTabs"></div>
-    <p class="role-note" id="roleNote" aria-live="polite"></p>
-    <div class="people" id="people"></div>
-    <div class="swipe-hint" aria-hidden="true">Swipe to see more <svg class="i"><use href="#i-arrow_forward"/></svg></div>
-  </div>
-</section>
 
 <!-- CONTACT -->
 <section class="band contact" id="discovery">
@@ -658,23 +592,6 @@ footer .faddr a:hover { color: #fff; }
     { icon: "devices", title: "Cross-Platform Development", desc: "One codebase for iOS, Android and web, built in Flutter or React Native. Faster to launch and cheaper to maintain.", tags: ["Flutter", "React Native"] },
   ];
 
-  const ROLES = [
-    { key: "flutter", label: "Flutter", icon: "devices", title: "Flutter Developer", stack: ["Flutter", "Dart"], ring: "linear-gradient(135deg,#54c5f8,#01579b)",
-      note: "<b>Flutter developers</b> build cross-platform apps for iOS, Android and web from a single codebase.",
-      people: ["Rahul Raj", "Arjun Menon", "Akash Kumar", "Nikhil Ramesh", "Vishnu Prasad"] },
-    { key: "backend", label: "Backend", icon: "dns", title: "Backend Developer", stack: ["APIs", "Databases", "Cloud"], ring: "linear-gradient(135deg,#b6c4ff,#4c5fd5)",
-      note: "<b>Backend developers</b> build the servers, databases and integrations behind every app and website we ship.",
-      people: ["Aditya Sharma", "Rohit Verma", "Sandeep Kumar", "Abhishek Reddy", "Karthik Srinivas", "Divya Krishnan"] },
-    { key: "android", label: "Android", icon: "android", title: "Native Android Developer", stack: ["Kotlin"], ring: "linear-gradient(135deg,#7ee2a8,#0f8a5f)",
-      note: "<b>Native Android developers</b> build apps in Kotlin for performance and deep Android integration.",
-      people: ["Pranav Krishnan", "Anirudh Iyer"] },
-    { key: "ios", label: "iOS", icon: "phone_iphone", title: "Native iOS Developer", stack: ["Swift", "SwiftUI"], ring: "linear-gradient(135deg,#ffb27a,#f05138)",
-      note: "<b>Native iOS developers</b> build apps in Swift and SwiftUI that look and feel at home on iPhone and iPad.",
-      people: ["Rohan Thomas", "Ajay Mathew", "Vivek Joseph"] },
-    { key: "qa", label: "QA", icon: "fact_check", title: "QA Engineer", stack: ["Manual", "Automated"], ring: "linear-gradient(135deg,#86f2e4,#006a61)",
-      note: "<b>QA engineers</b> test every release on real devices before it reaches your users.",
-      people: ["Sneha Sharma", "Anshuman Prathap", "Neha Parikh", "Priya Ganesh", "Harish Babu"] },
-  ];
 
 
   const REGIONS = [["germany", "🇩🇪 Germany"], ["usa", "🇺🇸 United States"], ["canada", "🇨🇦 Canada"], ["india", "🇮🇳 India"], ["singapore", "🇸🇬 Singapore"], ["dubai", "🇦🇪 Dubai (UAE)"]];
@@ -710,42 +627,6 @@ footer .faddr a:hover { color: #fff; }
       <div class="tags">${v.tags.map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>
     </article>`).join("");
 
-  // ---------- team with role tabs ----------
-  const initials = (n) => n.split(" ").map((w) => w[0]).join("").slice(0, 2);
-  const tabs = [{ key: "all", label: "Everyone", icon: "groups" }, ...ROLES];
-  $("#roleTabs").innerHTML = tabs.map((t, i) =>
-    `<button type="button" role="tab" data-r="${t.key}" aria-selected="${i === 0}"><svg class="i" aria-hidden="true"><use href="#i-${t.icon}"/></svg>${t.label}</button>`).join("");
-  // All cards are drawn once. Choosing a role only highlights its people (desktop) or hides
-  // the others inside a fixed-height swipe row (phones), so the page never changes height.
-  $("#people").innerHTML = ROLES.flatMap((r) => r.people.map((n) => `
-    <article class="person" data-r="${r.key}">
-      <div class="avatar" style="--ring:${r.ring}"><span>${initials(n)}</span></div>
-      <div class="who">
-        <div class="name">${esc(n)}</div>
-        <div class="role">${r.title}</div>
-        <div class="stack">${r.stack.map((s) => `<i>${s}</i>`).join("")}</div>
-      </div>
-      <span class="badge" aria-hidden="true"><svg class="i" aria-hidden="true"><use href="#i-${r.icon}"/></svg></span>
-    </article>`)).join("");
-  function showRole(key) {
-    const role = ROLES.find((r) => r.key === key);
-    $("#roleNote").innerHTML = role ? role.note : "Five disciplines, one team. Pick a role to see who does what.";
-    const grid = $("#people");
-    grid.classList.toggle("filtering", key !== "all");
-    $$(".person", grid).forEach((c) => {
-      const on = key === "all" || c.dataset.r === key;
-      c.classList.toggle("lit", key !== "all" && on);
-      c.classList.toggle("dim", !on);
-      c.setAttribute("aria-hidden", String(!on));
-    });
-    if (getComputedStyle(grid).display === "flex") grid.scrollTo({ left: 0, behavior: "smooth" });
-  }
-  showRole("all");
-  $$("#roleTabs button").forEach((b) => b.addEventListener("click", () => {
-    $$("#roleTabs button").forEach((x) => x.setAttribute("aria-selected", String(x === b)));
-    showRole(b.dataset.r);
-  }));
-
   // ---------- form tiles ----------
   $("#regionTiles").innerHTML = REGIONS.map(([v, l], i) =>
     `<label class="tile"><input type="radio" name="region" value="${v}" ${i === 0 ? "checked" : ""}><span class="mark"></span>${l}</label>`).join("");
@@ -755,7 +636,7 @@ footer .faddr a:hover { color: #fff; }
 
   // ---------- header: transparent over the hero, frosted after scrolling ----------
   const bar = $("#top-bar");
-  const ids = ["top", "hubs", "expertise", "team"];
+  const ids = ["top", "hubs", "expertise"];
   function onScroll() {
     bar.classList.toggle("scrolled", window.scrollY > 12);
     let cur = "top";
@@ -787,12 +668,7 @@ footer .faddr a:hover { color: #fff; }
   addEventListener("resize", fitHero);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitHero);
 
-  // ---------- hero: team avatar stack ----------
-  const picks = [["flutter", 0], ["backend", 0], ["ios", 0], ["android", 0], ["qa", 0], ["backend", 5]];
-  $("#heroAvatars").innerHTML = picks.map(([k, i]) => {
-    const r = ROLES.find((x) => x.key === k); const n = r.people[i];
-    return `<span style="--ring:${r.ring}" title="${esc(n)}, ${r.title}">${initials(n)}</span>`;
-  }).join("");
+
 
   // ---------- hero: search and popular chips lead into the form ----------
   function goToForm(service, text) {
